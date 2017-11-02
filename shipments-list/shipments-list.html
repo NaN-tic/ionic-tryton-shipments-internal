@@ -1,0 +1,58 @@
+
+<ion-header>
+
+  <ion-toolbar>
+    <ion-buttons left>
+      <button class="icon-padding white" ion-button icon-only (click)="logout($event)">
+        Logout
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title class="main-title white">
+        {{ "SHIPMENT_LIST_TITLE" | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="catalog-list-background" padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <ion-grid>
+      <ion-row wrap responsive-sm>
+        <ion-col *ngFor="let item of list_items" col-1 width-50 sm-width-100>
+          <ion-card class="item-list item.state">
+            <ion-grid>
+              <ion-row (click)="itemSelected($event, item)">
+                <ion-col width-50 class="f-size">
+                  <strong> {{ 'SHIPMENT_CODE' | translate }}</strong> : {{ item.code }}
+                </ion-col>
+                <ion-col width-50 class="f-size align-end">
+                  <strong> {{'SHIPMENT_PLANNED_DATE' | translate }}</strong> : {{ item.planned_date }}
+                </ion-col>
+              </ion-row>
+              <ion-row (click)="itemSelected($event, item)">
+                <ion-col width-100 class="f-size">
+                  <strong> {{ 'SHIPMENT_REFERENCE' | translate }}</strong>: {{ item.reference }}
+                </ion-col>
+              </ion-row>
+              <ion-row (click)="itemSelected($event, item)">
+                <ion-col width-100 class="f-size">
+                  <strong> {{ 'SHIPMENT_STATE' | translate }} </strong>: {{ item.state | translate }}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-infinite-scroll immediate-check="true" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
