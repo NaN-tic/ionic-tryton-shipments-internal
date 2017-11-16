@@ -40,7 +40,6 @@ export class ShipmentsListPage extends InfiniteList {
     }
 
     ionViewWillEnter() {
-        console.log("Starting search procedure...");
         this.setDefaultDomain();
         this.loadData();
     }
@@ -52,7 +51,6 @@ export class ShipmentsListPage extends InfiniteList {
      * @return {null}          No return
      */
     public itemSelected($event, item) {
-        console.log("Item selected", item)
         this.navCtrl.push(new Routing().getNext(this.constructor.name),
             {shipment: item})
     }
@@ -64,7 +62,6 @@ export class ShipmentsListPage extends InfiniteList {
      * @return {null}          No return
      */
     public deleteEntry($event, item) {
-        console.log("Deleting item", item)
         this.translate.get('DELETE_SHIPMENT').subscribe(
             value => {
                 let confirm = this.alertCtrl.create({
@@ -128,7 +125,6 @@ export class ShipmentsListPage extends InfiniteList {
      * @return {null}      No return
      */
     private deleteShipment(item){
-        console.log("Deleting entry")
         let method = 'model.stock.shipment.internal.delete'
         this.tryton_provider.rpc_call(method, [[item.id]]).subscribe(
             data => {

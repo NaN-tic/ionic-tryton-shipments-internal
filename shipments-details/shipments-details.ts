@@ -53,12 +53,10 @@ export class ShipmentsDetailsPage implements OnInit{
     }
 
     ngOnInit() {
-        console.log('Loading lines for shipment', this.shipment);
         this.loadShipmentLines()
     }
 
     ngAfterViewInit(){
-        console.log("Closing")
         Keyboard.show();
         document.getElementById('test').focus()
         Keyboard.close()
@@ -133,7 +131,6 @@ export class ShipmentsDetailsPage implements OnInit{
      * @return {boolean}           return true if the shipment is in the final state
      */
     public setStage(stateName: string) : boolean {
-        console.log("Setting the next transition for current state", stateName)
         /**
          * Transitions name, first value is the name of the next state
          * second value is the name of the function
@@ -164,16 +161,13 @@ export class ShipmentsDetailsPage implements OnInit{
                 break;
         }
         if (model){
-            console.log("Setting next stage, calling model", model)
             this.trytonProvider.rpc_call(model, [[this.shipment.id]])
             .subscribe(
                 data => {
-                    console.log("Next stage set correctly");
                     // Recursively call setStage until the state is done
                     this.setStage(next_stage);
                 },
                 error => {
-                    console.log("An error ocurred while setting state", next_stage)
                     let alert = this.alertCtrl.create({
                         title: "Error",
                         subTitle: error.messages[0],
@@ -184,7 +178,6 @@ export class ShipmentsDetailsPage implements OnInit{
             )
         }
         else {
-            alert("DONE")
             return true
         }
     }
@@ -192,7 +185,6 @@ export class ShipmentsDetailsPage implements OnInit{
      * Shows a message before leaving
      */
     public leaveView() {
-        console.log("Leaving view")
         this.translateService.get('LEAVING_SHIPMENT_DETAILS').subscribe(
             value => {
                 let confirm = this.alertCtrl.create({
@@ -262,7 +254,6 @@ export class ShipmentsDetailsPage implements OnInit{
         this.trytonProvider.search(json).subscribe(
             data => {
                 this.shipmentLines = data[method];
-                console.log("ShipmentLines", this.shipmentLines)
             },
             error => {
                 console.log("A wild error ocurred", error)
