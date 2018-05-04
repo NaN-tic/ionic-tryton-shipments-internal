@@ -4,7 +4,6 @@ import { TranslateService} from 'ng2-translate';
 import { Keyboard } from 'ionic-native';
 
 import { EncodeJSONRead } from '../../ngx-tryton-json/encode-json-read'
-import { EncodeJSONWrite } from '../../ngx-tryton-json/encode-json-write'
 import { TrytonProvider } from '../../ngx-tryton-providers/tryton-provider'
 
 // Interfaces

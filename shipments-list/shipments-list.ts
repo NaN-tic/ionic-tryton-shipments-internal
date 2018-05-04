@@ -4,7 +4,7 @@ import { TranslateService } from 'ng2-translate';
 import { Locker } from 'angular-safeguard';
 import { SessionService } from '../../ngx-tryton';
 
-import { InfiniteList } from '../../ngx-tryton-infinite-list/infinite-list';
+import { InfiniteList } from '../../ionic-tryton-infinite-list/infinite-list';
 import { EncodeJSONRead } from '../../ngx-tryton-json/encode-json-read';
 import { TrytonProvider } from '../../ngx-tryton-providers/tryton-provider';
 
@@ -33,7 +33,6 @@ export class ShipmentsListPage extends InfiniteList {
 
         super(navCtrl, tryton_provider, events);
 
-        let json_constructor = new EncodeJSONRead
         this.method = "stock.shipment.internal";
         this.fields = ["from_location", "to_location", "company",
             "number", "reference", "state", "planned_date", "planned_start_date"]
