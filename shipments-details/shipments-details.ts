@@ -52,38 +52,37 @@ export class ShipmentsDetailsPage implements OnInit{
 
     public inputChange(event) {
         if (Number(this.itemInput) > 100000) {
-            // Wait for results
-            let result = this.searchProductCode(this.itemInput).then(
-               data => {
-                    console.log("Data", data)
-                    // Filter elements by product id
-                    let line = this.shipmentLines.filter(i => i.product == data.id)[0]
-                    if (this.checkQuantity(line, 1))
-                        if (this.checkReminders())
-                            return this.setStage(this.shipment.state)
-
-                    else this.lastItem = line;
-                    return false
-
-               },
-               error => {
-                   console.log("ERROR")
-                   return false
-            })
-            if (result){
-                this.leaveView()
-            }
-        }
-        else if (this.lastItem){
-            if (this.checkQuantity(this.lastItem, Number(this.itemInput))){
-                if (this.checkReminders()){
-                    this.setStage(this.shipment.state);
-                    this.lastItem = undefined;
+          // Wait for results
+          let result = this.searchProductCode(this.itemInput).then(
+              data => {
+                console.log("Data", data)
+                // Filter elements by product id
+                let line = this.shipmentLines.filter(i => i.product == data.id)[0]
+                if (this.checkQuantity(line, 1)) {
+                  if (this.checkReminders()) {
+                    this.clearInput();
+                    return this.setStage(this.shipment.state);
+                  }
+                } else {
+                  this.lastItem = line;
+                  this.clearInput();
+                  return false
                 }
+              },
+              error => {
+               console.log("ERROR")
+               return false
+          })
+        } else if (this.lastItem){
+          if (this.checkQuantity(this.lastItem, Number(this.itemInput))){
+            if (this.checkReminders()){
+              this.setStage(this.shipment.state);
+              this.lastItem = undefined;
             }
-        }
-        else {
-            alert("No previous item for given quantity")
+            this.clearInput();
+          }
+        } else {
+          alert("No previous item for given quantity")
         }
     }
 
@@ -106,7 +105,6 @@ export class ShipmentsDetailsPage implements OnInit{
             this.shipmentLines[index].quantity -= quantity;
         }
         return false;
-
     }
 
     /**
@@ -159,9 +157,8 @@ export class ShipmentsDetailsPage implements OnInit{
                     alert.present();
                 }
             )
-        }
-        else {
-            return true
+        } else {
+          this.leaveView();
         }
     }
     /**
@@ -213,6 +210,10 @@ export class ShipmentsDetailsPage implements OnInit{
                     reject()
                 })
         })
+    }
+
+    public clearInput(): void{
+      this.itemInput = '';
     }
 
     /**
