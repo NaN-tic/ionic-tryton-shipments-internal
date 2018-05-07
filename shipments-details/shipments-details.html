@@ -1,15 +1,14 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ "SHIPMENT_DETAILS" | translate}}</ion-title>
+    <ion-title>{{ "Shipment" | translate}}: {{ shipment['number'] }}</ion-title>
   </ion-navbar>
 </ion-header>
-
 
 <ion-content padding>
   <div class="input_field">
     <ion-list>
       <ion-item>
-        <ion-label color="primary"> {{'Product' | translate}}  : </ion-label>
+        <ion-label color="primary"> {{'Product' | translate }}:</ion-label>
         <ion-input id="test" #focusInput2
         type="none"
         [(ngModel)]="itemInput"
