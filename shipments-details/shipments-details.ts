@@ -110,9 +110,8 @@ export class ShipmentsDetailsPage implements OnInit{
     /**
      * Sets the next logical state for the current shipment
      * @param  {string} stateName Current state of the shipment
-     * @return {boolean}           return true if the shipment is in the final state
      */
-    public setStage(stateName: string) : boolean {
+    public setStage(stateName: string) {
         /**
          * Transitions name, first value is the name of the next state
          * second value is the name of the function
