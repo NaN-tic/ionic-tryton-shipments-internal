@@ -1,6 +1,4 @@
-
 <ion-header>
-
   <ion-toolbar>
     <ion-buttons left>
       <button class="icon-padding white" ion-button icon-only (click)="logout($event)">
@@ -9,11 +7,10 @@
       </button>
     </ion-buttons>
     <ion-title class="main-title white">
-        {{ "SHIPMENT_LIST_TITLE" | translate}}
+        {{ "Internal Shipments" | translate }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content class="catalog-list-background" padding>
   <ion-refresher (ionRefresh)="doRefresh($event)">
@@ -28,20 +25,20 @@
             <ion-grid>
               <ion-row (click)="itemSelected($event, item)">
                 <ion-col width-50 class="f-size">
-                  <strong> {{ 'SHIPMENT_CODE' | translate }}</strong> : {{ item.code }}
+                  <strong> {{ 'Code' | translate }}</strong> : {{ item.code }}
                 </ion-col>
                 <ion-col width-50 class="f-size align-end">
-                  <strong> {{'SHIPMENT_PLANNED_DATE' | translate }}</strong> : {{ item.planned_date }}
+                  <strong> {{'Planned Date' | translate }}</strong> : {{ item.planned_date | date:'dd/MM/yyyy' }}
                 </ion-col>
               </ion-row>
               <ion-row (click)="itemSelected($event, item)">
                 <ion-col width-100 class="f-size">
-                  <strong> {{ 'SHIPMENT_REFERENCE' | translate }}</strong>: {{ item.reference }}
+                  <strong> {{ 'Reference' | translate }}</strong>: {{ item.reference }}
                 </ion-col>
               </ion-row>
               <ion-row (click)="itemSelected($event, item)">
                 <ion-col width-100 class="f-size">
-                  <strong> {{ 'SHIPMENT_STATE' | translate }} </strong>: {{ item.state | translate }}
+                  <strong> {{ 'State' | translate }}</strong>: {{ item.state | translate }}
                 </ion-col>
               </ion-row>
             </ion-grid>

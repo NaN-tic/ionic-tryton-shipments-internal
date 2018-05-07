@@ -15,40 +15,29 @@ import { Shipment } from '../../ngx-tryton-stock-interface/shipment';
   templateUrl: 'shipments-details.html'
 })
 export class ShipmentsDetailsPage implements OnInit{
-
      @Input() itemInput: string;
-
     /**
      * Lines of the current Shipment
      * @type {Move[]}
      */
     shipmentLines: Move[] = [];
-
     /**
      * Current shipment
      * @type {Shipment}
      */
     shipment: Shipment;
-
     fields: Array<string>;
     domain: Array<any>;
-
     lastItem: Move;
-
 
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public trytonProvider: TrytonProvider, public translateService: TranslateService,
         public alertCtrl: AlertController) {
 
-        this.shipment = navParams.get('shipment')
-        this.fields = ["product", "product.rec_name",
-            "quantity", "uom", "state", "product.code"]
+        this.shipment = navParams.get('shipment');
+        this.fields = ["product", "product.rec_name", "quantity", "uom", "state", "product.code"];
         let json_constructor = new EncodeJSONRead;
-        this.domain = [
-            json_constructor.createDomain('shipment', '=',
-                'stock.shipment.internal,' + this.shipment.id)
-        ];
-
+        this.domain = [json_constructor.createDomain('shipment', '=', 'stock.shipment.internal,' + this.shipment.id)];
     }
 
     ngOnInit() {
@@ -68,9 +57,7 @@ export class ShipmentsDetailsPage implements OnInit{
                data => {
                     console.log("Data", data)
                     // Filter elements by product id
-                    let line = this.shipmentLines.filter(i =>
-                            i.product == data.id)[0]
-
+                    let line = this.shipmentLines.filter(i => i.product == data.id)[0]
                     if (this.checkQuantity(line, 1))
                         if (this.checkReminders())
                             return this.setStage(this.shipment.state)
@@ -86,7 +73,6 @@ export class ShipmentsDetailsPage implements OnInit{
             if (result){
                 this.leaveView()
             }
-
         }
         else if (this.lastItem){
             if (this.checkQuantity(this.lastItem, Number(this.itemInput))){
@@ -108,7 +94,6 @@ export class ShipmentsDetailsPage implements OnInit{
      * @return {boolean}          True if it matches
      */
     public checkQuantity(line: Move, quantity:number): boolean {
-
         if (line.quantity == quantity){
             this.shipmentLines = this.shipmentLines.filter(i => i !== line);
             return true;
@@ -145,7 +130,6 @@ export class ShipmentsDetailsPage implements OnInit{
         let model = undefined;
         let next_stage = transitions[stateName];
         switch (next_stage){
-
             case 'waiting':
                 model = "model.stock.shipment.internal.wait";
                 break;
@@ -184,7 +168,7 @@ export class ShipmentsDetailsPage implements OnInit{
      * Shows a message before leaving
      */
     public leaveView() {
-        this.translateService.get('LEAVING_SHIPMENT_DETAILS').subscribe(
+        this.translateService.get('Leaving Shipment Internal').subscribe(
             value => {
                 let confirm = this.alertCtrl.create({
                     title: value,
@@ -212,11 +196,9 @@ export class ShipmentsDetailsPage implements OnInit{
      * @return {Promise<any>}      Id of the product if it matches
      */
     private searchProductCode(code: string): Promise<any> {
-
         return new Promise<number>((resolve, reject) =>{
             let json_constructor = new EncodeJSONRead;
-            let product_domain = [json_constructor.createDomain(
-                'rec_name', '=', code)]
+            let product_domain = [json_constructor.createDomain('rec_name', '=', code)]
             let method = "product.product"
             json_constructor.addNode("product.product", product_domain, ["id"])
             let json = json_constructor.createJson()
@@ -241,7 +223,6 @@ export class ShipmentsDetailsPage implements OnInit{
         return this.shipmentLines.length == 0;
     }
 
-
     private loadShipmentLines() {
         let method = "stock.move";
         let json_constructor = new EncodeJSONRead;
@@ -257,8 +238,6 @@ export class ShipmentsDetailsPage implements OnInit{
             error => {
                 console.log("A wild error ocurred", error)
             }
-
         )
-
     }
 }

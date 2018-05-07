@@ -35,7 +35,7 @@ export class ShipmentsListPage extends InfiniteList {
 
         this.method = "stock.shipment.internal";
         this.fields = ["from_location", "to_location", "company",
-            "number", "reference", "state", "planned_date", "planned_start_date"]
+            "code", "reference", "state", "planned_date", "planned_start_date"]
     }
 
     ionViewWillEnter() {
