@@ -92,6 +92,7 @@ export class ShipmentsListPage extends InfiniteList {
         this.tryton_session.doLogout();
         this.navCtrl.pop();
     }
+
     /**
      * Refresh data feed
      * @param  {event} refresher Refresh event
@@ -113,10 +114,8 @@ export class ShipmentsListPage extends InfiniteList {
         this.list_items = []
         this.offset = 0;
         let json_constructor = new EncodeJSONRead()
-        this.domain = [
-            json_constructor.createDomain("company", "=",
-                this.driver.get('UserData').company)];
-        }
+        this.domain = [json_constructor.createDomain("company", "=", this.driver.get('UserData').company)];
+    }
 
     /**
      * Removes a shipment from the system
@@ -133,5 +132,4 @@ export class ShipmentsListPage extends InfiniteList {
         // Set new array
         this.list_items = this.list_items.filter(i => i !== item);
     }
-
 }
