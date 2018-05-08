@@ -115,6 +115,7 @@ export class ShipmentsListPage extends InfiniteList {
         this.offset = 0;
         let json_constructor = new EncodeJSONRead()
         this.domain = [json_constructor.createDomain("company", "=", this.driver.get('UserData').company)];
+        this.domain.push(json_constructor.createDomain("state", "in", ["assigned"]));
     }
 
     /**
