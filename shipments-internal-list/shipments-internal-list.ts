@@ -7,11 +7,11 @@ import { SessionService } from '../../ngx-tryton';
 import { InfiniteList } from '../../ionic-tryton-infinite-list/infinite-list';
 import { EncodeJSONRead } from '../../ngx-tryton-json/encode-json-read';
 import { TrytonProvider } from '../../ngx-tryton-providers/tryton-provider';
-import { InternalShipmentsDetailsPage } from "../shipments-details/shipments-details";
+import { InternalShipmentsDetailsPage } from "../shipments-internal-details/shipments-internal-details";
 
 @Component({
-  selector: 'page-shipments-list',
-  templateUrl: 'shipments-list.html'
+  selector: 'page-shipments-internal-list',
+  templateUrl: 'shipments-internal-list.html'
 })
 /**
  * This class is responsilbe for handeling the list of all the internal shipments

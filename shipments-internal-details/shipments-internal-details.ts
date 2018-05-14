@@ -11,8 +11,8 @@ import { Move } from '../../ngx-tryton-stock-interface/move';
 import { InternalShipment } from '../../ngx-tryton-stock-interface/shipment';
 
 @Component({
-  selector: 'page-shipments-details',
-  templateUrl: 'shipments-details.html'
+  selector: 'page-shipments-internal-details',
+  templateUrl: 'shipments-internal-details.html'
 })
 export class ShipmentsDetailsPage implements OnInit{
      @Input() itemInput: string;
