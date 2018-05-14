@@ -14,7 +14,7 @@ import { InternalShipment } from '../../ngx-tryton-stock-interface/shipment';
   selector: 'page-shipments-internal-details',
   templateUrl: 'shipments-internal-details.html'
 })
-export class ShipmentsDetailsPage implements OnInit{
+export class InternalShipmentsDetailsPage implements OnInit{
      @Input() itemInput: string;
     /**
      * Lines of the current Shipment
