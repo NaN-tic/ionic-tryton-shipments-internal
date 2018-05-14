@@ -19,7 +19,7 @@ import { Routing } from '../../../pages/routing/routing';
  * This class is responsilbe for handeling the list of all the internal shipments
  * that the user has created
  */
-export class ShipmentsListPage extends InfiniteList {
+export class InternalShipmentsListPage extends InfiniteList {
 
   @Input()
   inputReference: string;
@@ -50,7 +50,7 @@ export class ShipmentsListPage extends InfiniteList {
      * @return {null}          No return
      */
     public itemSelected($event, item) {
-        this.navCtrl.push(new Routing().getNext(this.constructor.name),
+        this.navCtrl.push(new Routing().getNext('InternalShipmentsDetailsPage'),
             {shipment: item})
     }
 
