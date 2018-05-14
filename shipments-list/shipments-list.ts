@@ -7,9 +7,7 @@ import { SessionService } from '../../ngx-tryton';
 import { InfiniteList } from '../../ionic-tryton-infinite-list/infinite-list';
 import { EncodeJSONRead } from '../../ngx-tryton-json/encode-json-read';
 import { TrytonProvider } from '../../ngx-tryton-providers/tryton-provider';
-
-//Pages
-import { Routing } from '../../../pages/routing/routing';
+import { InternalShipmentsDetailsPage } from "../shipments-details/shipments-details";
 
 @Component({
   selector: 'page-shipments-list',
@@ -50,8 +48,7 @@ export class InternalShipmentsListPage extends InfiniteList {
      * @return {null}          No return
      */
     public itemSelected($event, item) {
-        this.navCtrl.push(new Routing().getNext('InternalShipmentsDetailsPage'),
-            {shipment: item})
+      this.navCtrl.push(InternalShipmentsDetailsPage, {shipment: item})
     }
 
     /**
