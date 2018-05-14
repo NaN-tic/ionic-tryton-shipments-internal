@@ -8,7 +8,7 @@ import { TrytonProvider } from '../../ngx-tryton-providers/tryton-provider'
 
 // Interfaces
 import { Move } from '../../ngx-tryton-stock-interface/move';
-import { Shipment } from '../../ngx-tryton-stock-interface/shipment';
+import { InternalShipment } from '../../ngx-tryton-stock-interface/shipment';
 
 @Component({
   selector: 'page-shipments-details',
@@ -25,7 +25,7 @@ export class InternalShipmentsDetailsPage implements OnInit{
      * Current shipment
      * @type {Shipment}
      */
-    shipment: Shipment;
+    shipment: InternalShipment;
     fields: Array<string>;
     domain: Array<any>;
     lastItem: Move;
@@ -33,7 +33,6 @@ export class InternalShipmentsDetailsPage implements OnInit{
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public trytonProvider: TrytonProvider, public translateService: TranslateService,
         public alertCtrl: AlertController) {
-
         this.shipment = navParams.get('shipment');
         this.fields = ["product", "product.rec_name", "quantity", "uom", "state", "product.code"];
         let json_constructor = new EncodeJSONRead;
@@ -41,7 +40,7 @@ export class InternalShipmentsDetailsPage implements OnInit{
     }
 
     ngOnInit() {
-        this.loadShipmentLines()
+        this.loadShipmentLines();
     }
 
     ngAfterViewInit(){
