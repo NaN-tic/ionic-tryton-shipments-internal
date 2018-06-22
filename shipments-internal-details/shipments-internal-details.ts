@@ -34,7 +34,7 @@ export class InternalShipmentsDetailsPage implements OnInit{
         public trytonProvider: TrytonProvider, public translateService: TranslateService,
         public alertCtrl: AlertController) {
         this.shipment = navParams.get('shipment');
-        this.fields = ["product", "product.rec_name", "quantity", "uom", "state", "product.code"];
+        this.fields = ['product:["rec_name", "code"]', 'quantity', 'state'];
         let json_constructor = new EncodeJSONRead;
         this.domain = [json_constructor.createDomain('shipment', '=', 'stock.shipment.internal,' + this.shipment.id)];
     }
@@ -45,22 +45,28 @@ export class InternalShipmentsDetailsPage implements OnInit{
 
     ngAfterViewInit(){
         Keyboard.show();
-        document.getElementById('test').focus()
+        document.getElementById('code').focus()
         Keyboard.close()
     }
 
     public inputChange(event) {
-        if (Number(this.itemInput) > 100000) {
+        if (this.itemInput.length > 5) {
           // Wait for results
-          let result = this.searchProductCode(this.itemInput).then(
+          this.searchProductCode(this.itemInput).then(
               data => {
-                console.log("Data", data)
+                // console.log("Data", data)
                 // Filter elements by product id
-                let line = this.shipmentLines.filter(i => i.product == data.id)[0]
+                if (!data['id']) {
+                  this.clearInput();
+                  return
+                }
+                let line = this.shipmentLines.filter(i => i['product.id'] == data['id'])[0];
                 if (this.checkQuantity(line, 1)) {
                   if (this.checkReminders()) {
                     this.clearInput();
                     return this.setStage(this.shipment.state);
+                  } else {
+                    this.clearInput();
                   }
                 } else {
                   this.lastItem = line;
@@ -77,6 +83,7 @@ export class InternalShipmentsDetailsPage implements OnInit{
             if (this.checkReminders()){
               this.setStage(this.shipment.state);
               this.lastItem = undefined;
+              this.clearInput();
             }
             this.clearInput();
           }
@@ -95,13 +102,13 @@ export class InternalShipmentsDetailsPage implements OnInit{
         if (line.quantity == quantity){
             this.shipmentLines = this.shipmentLines.filter(i => i !== line);
             return true;
-        }
-        else if (line.quantity < quantity){
+        } else if (line.quantity < quantity){
             alert("Quantity entered is bigger that line quantity (WTF)");
-        }
-        else {
+        } else {
+          if (Number.isInteger(quantity)) {
             let index = this.shipmentLines.indexOf(line);
             this.shipmentLines[index].quantity -= quantity;
+          }
         }
         return false;
     }
@@ -193,10 +200,10 @@ export class InternalShipmentsDetailsPage implements OnInit{
     private searchProductCode(code: string): Promise<any> {
         return new Promise<number>((resolve, reject) =>{
             let json_constructor = new EncodeJSONRead;
-            let product_domain = [json_constructor.createDomain('rec_name', '=', code)]
-            let method = "product.product"
-            json_constructor.addNode("product.product", product_domain, ["id"])
-            let json = json_constructor.createJson()
+            let product_domain = [json_constructor.createDomain('rec_name', 'ilike', '%' + code)];
+            let method = "product.product";
+            json_constructor.addNode(method, product_domain, ["id"]);
+            let json = json_constructor.createJson();
             this.trytonProvider.search(json).subscribe(
                 data => {
                     console.log("Item exisits", data);

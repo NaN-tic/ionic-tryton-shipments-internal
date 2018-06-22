@@ -9,8 +9,8 @@
     <ion-list>
       <ion-item>
         <ion-label color="primary"> {{'Product' | translate }}:</ion-label>
-        <ion-input id="test" #focusInput2
-        type="none"
+        <ion-input id="code" #code
+        type="string"
         [(ngModel)]="itemInput"
         (keyup.enter)="inputChange($event)" autofocus>
       </ion-input>
