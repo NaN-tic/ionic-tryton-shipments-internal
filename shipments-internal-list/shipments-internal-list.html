@@ -19,8 +19,8 @@
                 <ion-col width-50 class="f-size">
                   <strong>{{ 'Number' | translate }}</strong>: {{ item.number }}
                 </ion-col>
-                <ion-col width-50 class="f-size align-end">
-                  <strong>{{'Planned Date' | translate }}</strong>: {{ item.planned_date | date:'dd/MM/yyyy' }}
+                <ion-col width-50 class="f-size align-end" *ngIf="item.planned_date">
+                  <strong>{{'Planned Date' | translate }}</strong>: {{ item.planned_date['day'] }}/{{ item.planned_date['month'] }}/{{ item.planned_date['year'] }}
                 </ion-col>
               </ion-row>
               <ion-row (click)="itemSelected($event, item)">

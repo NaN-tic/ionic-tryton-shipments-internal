@@ -32,7 +32,7 @@ export class InternalShipmentsListPage extends InfiniteList {
         super(navCtrl, tryton_provider, events);
 
         this.method = "stock.shipment.internal";
-        this.fields = ["from_location", "to_location", "company",
+        this.fields = ["from_location.name", "to_location.name",
             "number", "reference", "state", "planned_date", "planned_start_date"]
     }
 
